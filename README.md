@@ -116,3 +116,56 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
     }
 ```
 * Save and close the ContosoContext.cs class.
+
+&nbsp;
+## 04 Implement Basic Entity Framework Core Logic
+* In the currently open Program.cs file, ensure that an using statement exists for the System namespace:
+```
+    using System;
+```
+* Add a new using statement for the System.Threading.Tasks namespace:
+```
+    using System.Threading.Tasks;
+```
+* Add a new using statement for the Microsoft.EntityFrameworkCore.Infrastructure namespace:
+```
+    using Microsoft.EntityFrameworkCore.Infrastructure;
+```
+* Add a new using statement for the Microsoft.EntityFrameworkCore.Storage namespace:
+```
+    using Microsoft.EntityFrameworkCore.Storage;
+```
+* Add a new RunAsync method with the following signature:
+```
+    static async Task RunAsync()
+```
+* Within the RunAsync method, Add a using block that instantiates a new instance of the ContosoContext class:
+```
+    using (ContosoContext context = new ContosoContext())
+    {
+    }
+```
+* Within the using block, add a new line of code to get an instance of the IDatabaseCreator service using the generic GetService method of the context variable and cast the result to the RelationalDatabaseCreator type:
+```
+    var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+```
+* After the last line of code within the using block, add a new line of code to await the asynchronous invocation of the creator variable's ExistsAsync method:
+```
+    await creator.ExistsAsync();
+```
+* After the last line of code within the using block, add a new line of code to write the message "Connection Successful" to the console window:
+```
+    Console.WriteLine("Connection Successful");
+```
+* Your RunAsync method should now look like this:
+```
+    static async Task RunAsync()
+    {
+        using (ContosoContext context = new ContosoContext())
+        {
+            var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+            await creator.ExistsAsync();
+            Console.WriteLine("Connection Successful");
+        }
+    }
+```

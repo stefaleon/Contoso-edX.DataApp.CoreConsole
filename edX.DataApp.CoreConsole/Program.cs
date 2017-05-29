@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Threading.Tasks;
 
 namespace edX.DataApp.CoreConsole
 {
@@ -6,7 +9,17 @@ namespace edX.DataApp.CoreConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World!");                       
+        }
+
+        static async Task RunAsync()
+        {
+            using (ContosoContext context = new ContosoContext())
+            {
+                var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+                await creator.ExistsAsync();
+                Console.WriteLine("Connection Successful");
+            }
         }
     }
 }
