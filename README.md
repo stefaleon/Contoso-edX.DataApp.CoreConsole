@@ -295,3 +295,68 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
     }
 ```
 * Save and close the Product.cs class.
+
+&nbsp;
+## 08 Implement Query Logic
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; right-click the edX.DataApp.Console project, hover over the Add menu option, and then select the New Item... menu option.
+* In the Add New Item dialog, perform the following actions:
+    * Expand the Visual C# Items node, and then select the Code node.
+    * Select the Class template.
+    * In the Name box, enter the value ProductQuery.cs.
+    * Click the OK button.
+* Once the file has been created, Visual Studio will automatically open the ProductQuery.cs class file. Leave this file open.
+* In the currently open ProductQuery.cs file, ensure that an using statement exists for the System namespace:
+```
+    using System;
+```
+* Ensure that an using statement exists for the System.Collections.Generic namespace:
+```
+    using System.Collections.Generic;
+```
+* Add a new using statement for the System.Linq namespace:
+```
+    using System.Linq;
+```
+* Update the ProductQuery class definition by setting a public accessor:
+```
+    public class ProductQuery
+```
+* Within the ProductQuery class, add a new RunLogic method with the following signature:
+```
+    public void RunLogic(ContosoContext context)
+    {        
+    }
+```
+* Within the RunLogic method, add a new line of code to get an IEnumerable variable that contains a query that would return all results in the Products table. (Note: Do not add a semicolon to the end of the line of code):
+```
+    IEnumerable<Product> products =   
+```
+* Add a new line of code to create a LINQ query using the from keyword and a product variable for local expression evaluation:
+```
+    IEnumerable<Product> products =
+        from product in context.Products
+```
+* Add a new line of code to expand the LINQ query by filtering the results to records that have a value of true for the SafetyReviewResult property. To accomplish this, reference the SafetyReviewResult nullable property and use the null coalescing operator to return false if the property is null:
+```
+    IEnumerable<Product> products =
+        from product in context.Products
+        where product.SafetyReviewResult ?? false
+```
+* Add a new line of code to expand the LINQ query by enumerating the results to a IEnumerable variable:
+```
+    IEnumerable<Product> products =
+        from product in context.Products
+        where product.SafetyReviewResult ?? false
+        select product;
+```
+* Add a new line of code to enumerator over the products variable using the foreach keyword:
+```
+    foreach(Product product in products)
+    {
+    }
+```
+* Within the foreach block, add a line of code to write information about each product to the console window:
+```
+    Console.WriteLine($"[{product.ProductNumber}]\t{product.Name, 35}\tPassed Review: {product.SafetyReviewResult}");
+```
