@@ -67,3 +67,52 @@ using System.ComponentModel.DataAnnotations;
     }
 ```
 * Save and close the Product.cs class.
+
+&nbsp;
+## 03 Implement A Entity Framework Core Context Class
+* In the Solution Explorer pane, right-click the edX.DataApp.Lab.CoreConsole project, hover over the Add menu option and then select the New Item... menu option.
+* In the Add New Item dialog, perform the following actions:
+    * Expand the Visual C# Items node, and then select the Code node.
+    * Select the Class template.
+    * In the Name box, enter the value ContosoContext.cs.
+    * Click the OK button.
+* Once the file has been created, Visual Studio will automatically open the ContosoContext.cs class file. Leave this file open.
+* In the currently open ContosoContext.cs file, add a new using statement for the Microsoft.EntityFrameworkCore namespace:
+```
+using Microsoft.EntityFrameworkCore;
+```
+* Update the ContosoContext class definition by setting a public accessor and inheriting from the DbContext class:
+```
+public class ContosoContext : DbContext
+```
+* Add a new method named OnConfiguring to the ContosoContext class using the following signature:
+```
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+```
+* Within the OnConfiguring method, add a new line to create a string variable named connectionString with a value of Data
+Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
+```
+    string connectionString = @"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;";
+```
+* After the last line of code, add a another line of code to use the connectionString variable as a parameter to the UseSqlServer method of the optionsBuilder variable:
+```
+    optionsBuilder.UseSqlServer(connectionString);
+```
+* In the ContosoContext class, add a new DbSet property named Products with public get and set accessors and the virtual keyword:
+```
+    public virtual DbSet<Product> Products { get; set; }
+```
+* Your ContosoContext class should now look like this:
+```
+    public class ContosoContext : DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;";
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        public virtual DbSet<Product> Products { get; set; }
+    }
+```
+* Save and close the ContosoContext.cs class.
