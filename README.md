@@ -233,7 +233,7 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 ```
 * Click the green arrow button to Execute the query. The query should return a message indicating that it has succeeded.
 * In the query editor, replace the existing query with the following new query:
-````
+```
     UPDATE
         Products
     SET
@@ -247,3 +247,51 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 * Right-click the Tables node and then select the Refresh menu option.
 * Right-click the Products table node and then select the Show Table Data menu option.
 * Observe the new columns in your database table.
+
+
+&nbsp;
+## 07 Update an Entity Framework Model Class
+
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; expand the edX.DataApp.Console project and then double-click the Product.cs file.
+* In the currently open Product.cs file, ensure that an using statement exists for the System namespace:
+```
+    using System;
+```
+* Add a new nullable DateTime property named ReleaseDate with public get and set accessors:
+```
+    public DateTime? ReleaseDate { get; set; }
+```
+* Add a new nullable boolean property named SafetyReviewResult with public get and set accessors:
+```
+    public bool? SafetyReviewResult { get; set; }
+```
+* Add a new Guid property named ExternalId with public get and set accessors:
+```
+    public Guid ExternalId { get; set; }
+```
+* Your Product class should now look like this:
+```
+    public class Product
+    {
+        [Key]
+        public int ProductId { get; set; }
+
+        public string Name { get; set; }
+
+        public string ProductNumber { get; set; }
+
+        public string Color { get; set; }
+
+        public decimal StandardCost { get; set; }
+
+        public decimal ListPrice { get; set; }
+
+        public DateTime? ReleaseDate { get; set; }
+
+        public bool? SafetyReviewResult { get; set; }
+
+        public Guid ExternalId { get; set; }
+    }
+```
+* Save and close the Product.cs class.
