@@ -9,7 +9,9 @@ namespace edX.DataApp.CoreConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");                       
+            RunAsync().Wait();
+            Console.WriteLine("Application has completed execution. Press any key to exit.");
+            Console.ReadKey();
         }
 
         static async Task RunAsync()

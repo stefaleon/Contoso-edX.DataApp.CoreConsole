@@ -169,3 +169,40 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
         }
     }
 ```
+
+
+&nbsp;
+## 05 Validate Solution
+* In the currently open Program.cs file, locate the Main method with the following signature:
+```
+    static void Main(string[] args)
+```
+* Within the Main method, delete the existing line of code that writes "Hello World!" to the console window. You should now have an empty Main method:
+```
+    static void Main(string[] args)
+    {        
+    }
+```
+* Add the following line of code to invoke the RunAsync method and wait for the asynchronous Task to complete:
+```
+    RunAsync().Wait();
+```
+* After the last line of code, add a new line of code to write the message "Application has completed execution. Press any key to exit." to the console window:
+```
+    Console.WriteLine("Application has completed execution. Press any key to exit.");
+```
+* After the last line of code, add a new line of code to read the new keypress from the console window:
+```
+    Console.ReadKey();
+```
+* Your Run method should now look like this:
+```
+    static void Main(string[] args)
+    {
+        RunAsync().Wait();
+        Console.WriteLine("Application has completed execution. Press any key to exit.");
+        Console.ReadKey();
+    }
+```
+* At the top of the Visual Studio window; click the Debug menu, and then select the Start Debugging menu option.
+* Observe the "Connection Successful" message in the console window. Press any key to close the console window.
