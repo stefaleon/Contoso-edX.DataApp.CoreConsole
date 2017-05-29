@@ -206,3 +206,44 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 ```
 * At the top of the Visual Studio window; click the Debug menu, and then select the Start Debugging menu option.
 * Observe the "Connection Successful" message in the console window. Press any key to close the console window.
+
+
+&nbsp;
+## 06 Modify a Database Table
+
+* At the top of the Visual Studio window, click the View menu and then select the Server Explorer menu option.
+* In the Server Explorer pane, right-click the Data Connections node and then select the Add Connection... option.
+* In the Add Connection dialog, perform the following actions:
+    * In the Server name box, enter the value (localdb)\MSSQLLOCALDB.
+    * In the Authentication list, select the Windows Authentication option.
+    * In the Connect to a database section, locate the Select or enter a database name list. Select the ContosoDB database in the list.
+    * Click the Test Connection button at the bottom of the dialog.
+    * The response popup window should state "Test connection succeeded".
+    * Click the OK button to save the connection.
+* In the Server Explorer pane, you should see a node for the connection to the localdb database instance.
+* Right-click the localdb connection node and select the New Query option.
+* In the query editor, enter the following query:
+```
+    ALTER TABLE
+        Products
+    ADD
+        ReleaseDate datetime2 NULL,
+        SafetyReviewResult bit NULL,
+        ExternalId uniqueidentifier DEFAULT NEWSEQUENTIALID() NOT NULL
+```
+* Click the green arrow button to Execute the query. The query should return a message indicating that it has succeeded.
+* In the query editor, replace the existing query with the following new query:
+````
+    UPDATE
+        Products
+    SET
+        SafetyReviewResult = 1
+    WHERE
+        ProductNumber LIKE 'FR-%'
+```
+* Click the green arrow button to Execute the query. The query should return a message indicating that multiple rows have been affected by the query.
+* At the top of the Visual Studio window, click the View menu and then select the Server Explorer menu option.
+* In the Server Explorer pane; expand the localdb connection node and then expand the Tables node.
+* Right-click the Tables node and then select the Refresh menu option.
+* Right-click the Products table node and then select the Show Table Data menu option.
+* Observe the new columns in your database table.
