@@ -360,3 +360,43 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 ```
     Console.WriteLine($"[{product.ProductNumber}]\t{product.Name, 35}\tPassed Review: {product.SafetyReviewResult}");
 ```
+
+
+&nbsp;
+## 09 Validate Solution
+
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* Locate and expand the edX.DataApp.Console project.
+* Within the edX.DataApp.Console project, locate and double-click the Program.cs file.
+* Locate the RunAsync method with the following signature:
+```
+    static async Task RunAsync()
+```
+* Within the RunAsync method, locate the using block that instantiates a new instance of the ContosoContext class:
+```
+    using (ContosoContext context = new ContosoContext())
+    {
+        var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+        await creator.ExistsAsync();
+        Console.WriteLine("Connection Successful");
+    }
+```
+* Within the using block, add the following line of code after the last line of existing code to create a new instance of the ProductQuery class and invoke the RunLogic method:
+```
+    new ProductQuery().RunLogic(context);
+```
+* Your RunAsync method should now look like this:
+```
+    static async Task RunAsync()
+    {
+        using (ContosoContext context = new ContosoContext())
+        {
+            var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+            await creator.ExistsAsync();
+            Console.WriteLine("Connection Successful");
+            new ProductQuery().RunLogic(context);
+        }
+    }
+```
+* At the top of the Visual Studio window; click the Debug menu, and then select the Start Debugging menu option.
+* Observe the list of products printed to the console window. Press any key to close the console window.
