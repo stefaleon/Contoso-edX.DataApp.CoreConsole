@@ -513,3 +513,86 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
     }
 ```
 * Save and close the ContosoContext.cs class.
+
+
+&nbsp;
+## 13 Implement Query Logic
+
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; right-click the edX.DataApp.Console project, hover over the Add menu option, and then select the New Item... menu option.
+* In the Add New Item dialog, perform the following actions:
+    * Expand the Visual C# Items node, and then select the Code node.
+    * Select the Class template.
+    * In the Name box, enter the value ProductAndCategoryQuery.cs.
+    * Click the OK button.
+* Once the file has been created, Visual Studio will automatically open the ProductAndCategoryQuery.cs class file. Leave this file open.
+* In the currently open ProductAndCategoryQuery.cs file, ensure that an using statement exists for the System namespace:
+```
+    using System;
+```
+* Ensure that an using statement exists for the System.Collections.Generic namespace:
+```
+    using System.Collections.Generic;
+```
+* Add a new using statement for the System.Threading.Tasks namespace:
+```
+    using System.Threading.Tasks;
+```
+* Add a new using statement for the System.Linq namespace:
+```
+    using System.Linq;
+```
+* Add a new using statement for the Microsoft.EntityFrameworkCore namespace:
+```
+    using Microsoft.EntityFrameworkCore;
+```
+* Update the ProductAndCategoryQuery class definition by setting a public accessor:
+```
+    public class ProductAndCategoryQuery
+```
+* Within the ProductAndCategoryQuery class, add a new RunLogic method with the following signature:
+```
+    public async Task RunLogic(ContosoContext context)
+    {        
+    }
+```
+* Within the RunLogic method, add a new line of code to get an IEnumerable variable that contains a query that would return all results in the Products table. (Note: Do not add a semicolon to the end of the line of code):
+```
+    IEnumerable<Product> products = await context.Products   
+```
+* Add a new line of code to fluently extend the last line of code by including the ProductCategory related entity:
+```
+    IEnumerable<Product> products = await context.Products
+        .Include(p => p.ProductCategory)
+```
+* Add a new line of code to fluently extend the last line of code by filtering the results to only Product entities that have a ListPrice value between $1250.00 and $1450.00:
+```
+    IEnumerable<Product> products = await context.Products
+        .Include(p => p.ProductCategory)
+        .Where(p => p.ListPrice > 1250m && p.ListPrice < 1450m)
+```
+* Add a new line of code to fluently extend the last line of code by getting the top 20 records that match the query:
+```
+    IEnumerable<Product> products = await context.Products
+        .Include(p => p.ProductCategory)
+        .Where(p => p.ListPrice > 1250m && p.ListPrice < 1450m)
+        .Take(20)
+```
+* Add a new line of code to fluently extend the last line of code by enumerating the results to a List asynchronously:
+```
+    IEnumerable<Product> products = await context.Products
+        .Include(p => p.ProductCategory)
+        .Where(p => p.ListPrice > 1250m && p.ListPrice < 1450m)
+        .Take(20)
+        .ToListAsync();
+```
+* Add a new line of code to enumerator over the products variable using the foreach keyword:
+```
+    foreach(Product product in products)
+    {
+    }
+```
+* Within the foreach block, add a line of code to write information about each product to the console window:
+```
+    Console.WriteLine($"[{product.ProductCategory.Name}]\t{product.Name,35}\t{product.ListPrice:C}");
+```
