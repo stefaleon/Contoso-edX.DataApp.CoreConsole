@@ -449,3 +449,41 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
     }
 ```
 * Save and close the ProductCategory.cs class.
+
+
+&nbsp;
+## 11 Update an Existing Entity Framework Model Class
+
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; expand the edX.DataApp.Console project and then double-click the Product.cs file.
+* In the currently open Product.cs file, add a new ProductCategory property named ProductCategory with public get and set accessors and the virtual keyword:
+```
+    public virtual ProductCategory ProductCategory { get; set; }
+```
+* Your Product class should now look like this:
+```
+    public class Product
+    {
+        [Key]
+        public int ProductId { get; set; }
+
+        public string Name { get; set; }
+
+        public string ProductNumber { get; set; }
+
+        public string Color { get; set; }
+
+        public decimal StandardCost { get; set; }
+
+        public decimal ListPrice { get; set; }
+
+        public DateTime? ReleaseDate { get; set; }
+
+        public bool? SafetyReviewResult { get; set; }
+
+        public Guid ExternalId { get; set; }
+
+        public virtual ProductCategory ProductCategory { get; set; }
+    }
+```
+* Save and close the Product.cs class.

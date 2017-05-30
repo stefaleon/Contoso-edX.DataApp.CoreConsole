@@ -25,5 +25,7 @@ namespace edX.DataApp.CoreConsole
         public bool? SafetyReviewResult { get; set; }
 
         public Guid ExternalId { get; set; }
+
+        public virtual ProductCategory ProductCategory { get; set; }
     }
 }
