@@ -400,3 +400,52 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 ```
 * At the top of the Visual Studio window; click the Debug menu, and then select the Start Debugging menu option.
 * Observe the list of products printed to the console window. Press any key to close the console window.
+
+
+&nbsp;
+## 10 Create a New Entity Framework Model Class
+
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; right-click the edX.DataApp.Console project, hover over the Add menu option, and then select the New Item... menu option.
+* In the Add New Item dialog, perform the following actions:
+    * Expand the Visual C# Items node, and then select the Code node.
+    * Select the Class template.
+    * In the Name box, enter the value ProductCategory.cs.
+    * Click the OK button.
+* Once the file has been created, Visual Studio will automatically open the ProductCategory.cs class file. Leave this file open.
+* In the currently open ProductCategory.cs file, ensure that an using statement exists for the System namespace:
+```
+    using System;
+```
+* Add a new using statement for the System.ComponentModel.DataAnnotations namespace:
+```
+    using System.ComponentModel.DataAnnotations;
+```
+* Update the ProductCategory class definition by setting a public accessor:
+```
+    public class ProductCategory
+```
+* Add a new int property named ProductCategoryId with public get and set accessors:
+```
+    public int ProductCategoryId { get; set; }
+```
+* Update the ProductCategoryId property by adding a Key attribute to the property:
+```
+    [Key]
+    public int ProductCategoryId { get; set; }
+```
+* Add a new string property named Name with public get and set accessors:
+```
+    public string Name { get; set; }
+```
+* Your ProductCategory class should now look like this:
+```
+    public class ProductCategory
+    {
+        [Key]
+        public int ProductCategoryId { get; set; }
+
+        public string Name { get; set; }
+    }
+```
+* Save and close the ProductCategory.cs class.
