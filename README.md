@@ -487,3 +487,29 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
     }
 ```
 * Save and close the Product.cs class.
+
+
+&nbsp;
+## 12 Update the Entity Framework Context Class
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* In the Solution Explorer pane; expand the edX.DataApp.Console project and then double-click the ContosoContext.cs file.
+* In the currently open ContosoContext.cs file, add a new DbSet property named ProductCategories with public get and set accessors and the virtual keyword:
+```
+    public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+```
+* Your ContosoContext class should now look like this:
+```
+    public class ContosoContext : DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;";
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        public virtual DbSet<Product> Products { get; set; }
+
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+    }
+```
+* Save and close the ContosoContext.cs class.
