@@ -596,3 +596,49 @@ Source=(localdb)\MSSQLLOCALDB;Initial Catalog=ContosoDB;:
 ```
     Console.WriteLine($"[{product.ProductCategory.Name}]\t{product.Name,35}\t{product.ListPrice:C}");
 ```
+
+
+
+
+&nbsp;
+## 13 Validate Solution
+* At the top of the Visual Studio window; click the View menu and then select the Solution Explorer option.
+* Locate and expand the edX.DataApp.Console project.
+* Within the edX.DataApp.Console project, locate and double-click the Program.cs file.
+* Locate the RunAsync method with the following signature:
+``
+    static async Task RunAsync()
+```
+* Within the RunAsync method, locate the using block that instantiates a new instance of the ContosoContext class:
+```
+    using (ContosoContext context = new ContosoContext())
+    {
+        var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+        await creator.ExistsAsync();
+        Console.WriteLine("Connection Successful");
+        await new ProductQuery().RunLogic(context);
+    }
+```
+* Within the using block, remove the following line of code:
+```
+    await new ProductQuery().RunLogic(context);
+```
+* Add the following line of code after the last line of existing code to create a new instance of the ProductAndCategoryQuery class and invoke the RunLogic method:
+```
+    await new ProductAndCategoryQuery().RunLogic(context);
+```
+* Your RunAsync method should now look like this:
+```
+    static async Task RunAsync()
+    {
+        using (ContosoContext context = new ContosoContext())
+        {
+            var creator = context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+            await creator.ExistsAsync();
+            Console.WriteLine("Connection Successful");
+            await new ProductAndCategoryQuery().RunLogic(context);
+        }
+    }
+```
+* At the top of the Visual Studio window; click the Debug menu, and then select the Start Debugging menu option.
+* Observe the list of products printed to the console window. Press any key to close the console window.
